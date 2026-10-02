@@ -1,14 +1,14 @@
 'use client';
 
 import React, { useState, useMemo } from 'react';
-import { SimulationControls } from '@/components/controls/SimulationControls';
-import { VesselVisualization } from '@/components/visualization/VesselVisualization';
-import { R4Demonstration } from '@/components/visualization/R4Demonstration';
-import { ResultsPanel } from '@/components/results/ResultsPanel';
-import { AssumptionsDisclaimer } from '@/components/results/AssumptionsDisclaimer';
+import { SimulationControls } from '../components/controls/SimulationControls';
+import { VesselVisualization } from '../components/visualization/VesselVisualization';
+import { R4Demonstration } from '../components/visualization/R4Demonstration';
+import { ResultsPanel } from '../components/results/ResultsPanel';
+import { AssumptionsDisclaimer } from '../components/results/AssumptionsDisclaimer';
 
-import { PARAM_LIMITS } from '@/lib/validation';
-import { calculatePoiseuille } from '@/lib/physics/poiseuille';
+import { PARAM_LIMITS } from '../lib/validation';
+import { calculatePoiseuille } from '../lib/physics/poiseuille';
 import {
   mmToMeters,
   cmToMeters,
@@ -16,7 +16,7 @@ import {
   mmHgToPascal,
   m3sToMls,
   m3sToMlmin,
-} from '@/lib/units';
+} from '../lib/units';
 
 export default function Home() {
   const [radiusMm, setRadiusMm] = useState(PARAM_LIMITS.radius.default);
