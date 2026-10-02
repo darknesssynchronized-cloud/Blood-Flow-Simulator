@@ -1,7 +1,7 @@
 'use client';
 
 import React from 'react';
-import { PARAM_LIMITS, clamp } from '@/lib/validation';
+import { PARAM_LIMITS, clamp } from '../../lib/validation';
 
 interface ControlsProps {
   radiusMm: number;
@@ -47,7 +47,6 @@ export function SimulationControls({
       </div>
 
       <div className="space-y-4">
-        {/* Radius */}
         <div>
           <div className="flex justify-between text-sm mb-1">
             <label htmlFor="radius-slider" className="font-medium text-slate-300">
@@ -67,7 +66,6 @@ export function SimulationControls({
           />
         </div>
 
-        {/* Length */}
         <div>
           <div className="flex justify-between text-sm mb-1">
             <label htmlFor="length-slider" className="font-medium text-slate-300">
@@ -87,7 +85,6 @@ export function SimulationControls({
           />
         </div>
 
-        {/* Viscosity */}
         <div>
           <div className="flex justify-between text-sm mb-1">
             <label htmlFor="viscosity-slider" className="font-medium text-slate-300">
@@ -107,7 +104,6 @@ export function SimulationControls({
           />
         </div>
 
-        {/* Pressure Difference */}
         <div>
           <div className="flex justify-between text-sm mb-1">
             <label htmlFor="pressure-slider" className="font-medium text-slate-300">
@@ -128,7 +124,6 @@ export function SimulationControls({
         </div>
       </div>
 
-      {/* Advanced Settings */}
       <details className="border-t border-slate-800 pt-4 text-xs text-slate-400">
         <summary className="cursor-pointer font-medium hover:text-slate-300 mb-3">Advanced Settings</summary>
         <div className="space-y-3 pl-2">
