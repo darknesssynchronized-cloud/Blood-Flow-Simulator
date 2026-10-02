@@ -1,8 +1,8 @@
 'use client';
 
 import React from 'react';
-import { PhysicsResult } from '@/lib/physics/poiseuille';
-import { formatScientific } from '@/lib/format';
+import { PhysicsResult } from '../../lib/physics/poiseuille';
+import { formatScientific } from '../../lib/format';
 
 interface ResultsProps {
   results: PhysicsResult;
@@ -18,7 +18,6 @@ export function ResultsPanel({ results, flowUnit, flowValueFormatted }: ResultsP
       </h2>
 
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
-        {/* Flow Rate */}
         <div className="bg-slate-950 border border-slate-800 p-4 rounded-lg">
           <span className="text-xs text-slate-400 block mb-1">Volumetric Flow Rate (Q)</span>
           <div className="text-2xl font-bold font-mono text-cyan-300">
@@ -26,7 +25,6 @@ export function ResultsPanel({ results, flowUnit, flowValueFormatted }: ResultsP
           </div>
         </div>
 
-        {/* Velocity */}
         <div className="bg-slate-950 border border-slate-800 p-4 rounded-lg">
           <span className="text-xs text-slate-400 block mb-1">Mean Flow Velocity (v)</span>
           <div className="text-2xl font-bold font-mono text-cyan-300">
@@ -34,7 +32,6 @@ export function ResultsPanel({ results, flowUnit, flowValueFormatted }: ResultsP
           </div>
         </div>
 
-        {/* Resistance */}
         <div className="bg-slate-950 border border-slate-800 p-4 rounded-lg">
           <span className="text-xs text-slate-400 block mb-1">Hydraulic Resistance (R)</span>
           <div className="text-2xl font-bold font-mono text-cyan-300">
@@ -43,7 +40,6 @@ export function ResultsPanel({ results, flowUnit, flowValueFormatted }: ResultsP
           </div>
         </div>
 
-        {/* Reynolds Number */}
         <div className="bg-slate-950 border border-slate-800 p-4 rounded-lg">
           <span className="text-xs text-slate-400 block mb-1">Reynolds Number (Re)</span>
           <div className="text-2xl font-bold font-mono text-cyan-300">
@@ -58,7 +54,6 @@ export function ResultsPanel({ results, flowUnit, flowValueFormatted }: ResultsP
           </span>
         </div>
 
-        {/* Shear Stress */}
         <div className="bg-slate-950 border border-slate-800 p-4 rounded-lg">
           <span className="text-xs text-slate-400 block mb-1">Wall Shear Stress (τ)</span>
           <div className="text-2xl font-bold font-mono text-cyan-300">
