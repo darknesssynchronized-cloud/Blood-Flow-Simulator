@@ -4,12 +4,11 @@ import React from 'react';
 
 interface VesselVisualizationProps {
   radiusMm: number;
-  velocity: number; // m/s
+  velocity: number;
   flowRateMls: number;
 }
 
 export function VesselVisualization({ radiusMm, velocity, flowRateMls }: VesselVisualizationProps) {
-  // Clamp radius visually so it stays nicely inside the viewport
   const visualHeight = Math.max(12, Math.min(120, radiusMm * 10));
   const normalizedSpeed = Math.min(Math.max(velocity * 10, 0.5), 8);
 
@@ -32,7 +31,6 @@ export function VesselVisualization({ radiusMm, velocity, flowRateMls }: VesselV
             </linearGradient>
           </defs>
 
-          {/* Background Vessel Wall */}
           <rect
             x="20"
             y={80 - visualHeight}
@@ -44,7 +42,6 @@ export function VesselVisualization({ radiusMm, velocity, flowRateMls }: VesselV
             rx="4"
           />
 
-          {/* Flow Direction Particles */}
           {[30, 80, 130, 180, 230, 280, 330].map((x, i) => (
             <circle
               key={i}
