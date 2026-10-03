@@ -4,33 +4,33 @@ import React from 'react';
 
 export function AssumptionsDisclaimer() {
   return (
-    <div className="bg-slate-900 border border-slate-800 rounded-xl p-6 text-slate-400 space-y-4 text-xs">
-      <h3 className="text-sm font-bold text-slate-200 uppercase tracking-wider">
-        Model Assumptions & Educational Disclaimer
+    <div id="about" className="bg-[#0d1322] border border-slate-800 rounded-xl p-5 text-slate-400 space-y-4 text-xs">
+      <h3 className="text-xs font-bold text-slate-200 uppercase tracking-wider flex items-center gap-2">
+        <span>⚠️</span> Model Scope, Assumptions & Medical Disclaimer
       </h3>
 
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-        <div>
-          <span className="font-semibold text-slate-300 block mb-1">Hagen–Poiseuille Assumptions:</span>
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-4 text-[11px]">
+        <div className="bg-[#070a12] p-3 rounded border border-slate-800/80">
+          <span className="font-semibold text-slate-300 block mb-1">Hagen–Poiseuille Mathematical Assumptions:</span>
           <ul className="list-disc list-inside space-y-1 text-slate-400">
-            <li>Incompressible Newtonian fluid</li>
-            <li>Laminar, non-pulsatile steady flow</li>
-            <li>Rigid, straight cylindrical tube</li>
-            <li>No-slip condition at vessel wall</li>
+            <li>Incompressible Newtonian fluid (constant viscosity)[cite: 1]</li>
+            <li>Laminar, steady, non-pulsatile flow regime[cite: 1]</li>
+            <li>Rigid, non-distensible, straight cylindrical lumen[cite: 1]</li>
+            <li>Zero-velocity boundary conditions at wall (no-slip)[cite: 1]</li>
           </ul>
         </div>
-        <div>
-          <span className="font-semibold text-slate-300 block mb-1">Real Human Circulation Differences:</span>
+        <div className="bg-[#070a12] p-3 rounded border border-slate-800/80">
+          <span className="font-semibold text-slate-300 block mb-1">In Vivo Human Circulatory Differences:</span>
           <ul className="list-disc list-inside space-y-1 text-slate-400">
-            <li>Blood is non-Newtonian (shear-thinning)</li>
-            <li>Flow is pulsatile driven by cardiac cycle</li>
-            <li>Vessels are elastic and compliance-capable</li>
+            <li>Whole blood is non-Newtonian (shear-thinning red blood cells)</li>
+            <li>Flow is pulsatile driven by cardiac cycle dynamics</li>
+            <li>Arteries are viscoelastic and compliant</li>
           </ul>
         </div>
       </div>
 
-      <div className="p-3 bg-amber-950/30 border border-amber-800/40 rounded text-amber-300/90 text-[11px]">
-        <strong>Disclaimer:</strong> This simulator is an educational approximation for Biomedical Engineering students. It is not a diagnostic or clinical tool and must not be used for medical decisions.
+      <div className="p-3 bg-amber-950/20 border border-amber-800/40 rounded text-amber-300/90 text-[11px]">
+        <strong>Educational Disclaimer:</strong> This web application is an educational simulation designed for Biomedical Engineering students and instructors. It does not replace clinical measurement systems or clinical decision-making.
       </div>
     </div>
   );
