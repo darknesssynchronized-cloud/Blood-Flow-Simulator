@@ -38,7 +38,7 @@ export function calculatePoiseuille({
 
   // Reynolds Number: Re = (ρ * v * D) / η
   const diameter = 2 * radius;
-  const reynoldsNumber = (density * velocity * diameter) / viscosity;
+  const reynoldsNumber = viscosity > 0 ? (density * velocity * diameter) / viscosity : 0;
 
   // Flow Regime Categorization
   let regime: 'LAMINAR' | 'TRANSITIONAL' | 'TURBULENT' = 'LAMINAR';
