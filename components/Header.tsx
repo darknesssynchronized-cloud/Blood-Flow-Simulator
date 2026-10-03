@@ -3,53 +3,39 @@
 import React from 'react';
 
 export function Header() {
-  const scrollToSection = (id: string) => {
-    const el = document.getElementById(id);
-    if (el) el.scrollIntoView({ behavior: 'smooth' });
-  };
-
   return (
-    <header className="sticky top-0 z-50 bg-[#070a12]/90 backdrop-blur-md border-b border-slate-800/80 px-4 lg:px-8 py-3.5">
-      <div className="max-w-7xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-4">
+    <header className="sticky top-0 z-50 border-b border-slate-800/80 bg-slate-950/90 backdrop-blur-md">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
         <div className="flex items-center space-x-3">
-          <div className="w-8 h-8 rounded-md bg-rose-950/80 border border-rose-500/40 flex items-center justify-center text-rose-500 font-bold text-lg shadow-[0_0_15px_rgba(244,63,94,0.2)]">
-            🩸
+          <div className="w-8 h-8 rounded-lg bg-rose-950/80 border border-rose-500/40 flex items-center justify-center text-rose-500 font-black text-sm tracking-widest shadow-inner shadow-rose-950">
+            BF
           </div>
           <div>
-            <h1 className="text-base font-bold tracking-wider text-slate-100 flex items-center gap-2">
-              BLOODFLOW <span className="text-xs px-2 py-0.5 rounded bg-cyan-950/80 text-cyan-400 border border-cyan-800/50 font-mono">SIM-V2</span>
-            </h1>
-            <p className="text-[11px] text-slate-400 tracking-tight">
-              Biomedical Hemodynamics Research Laboratory
+            <div className="flex items-center space-x-2">
+              <span className="font-extrabold text-slate-100 tracking-wider text-base">BLOODFLOW</span>
+              <span className="px-1.5 py-0.5 text-[10px] font-mono font-semibold bg-rose-950/60 text-rose-400 border border-rose-800/50 rounded">
+                HEMODYNAMICS LAB
+              </span>
+            </div>
+            <p className="text-[11px] text-slate-400 font-mono hidden sm:block">
+              Hagen–Poiseuille Flow Simulation Tool
             </p>
           </div>
         </div>
 
-        <nav className="flex items-center space-x-1 sm:space-x-2 text-xs font-medium">
-          <button
-            onClick={() => scrollToSection('simulator')}
-            className="px-3 py-1.5 rounded hover:bg-slate-800 text-slate-300 hover:text-cyan-400 transition-colors"
-          >
-            [Simulator]
-          </button>
-          <button
-            onClick={() => scrollToSection('visualization')}
-            className="px-3 py-1.5 rounded hover:bg-slate-800 text-slate-300 hover:text-cyan-400 transition-colors"
-          >
-            [Visualization]
-          </button>
-          <button
-            onClick={() => scrollToSection('analysis')}
-            className="px-3 py-1.5 rounded hover:bg-slate-800 text-slate-300 hover:text-cyan-400 transition-colors"
-          >
-            [Theory]
-          </button>
-          <button
-            onClick={() => scrollToSection('about')}
-            className="px-3 py-1.5 rounded hover:bg-slate-800 text-slate-300 hover:text-cyan-400 transition-colors"
-          >
-            [About]
-          </button>
+        <nav className="flex items-center space-x-1 sm:space-x-6 text-xs font-mono">
+          <a href="#simulator" className="px-3 py-1.5 text-cyan-400 hover:text-cyan-300 font-semibold border-b-2 border-cyan-500 transition-colors">
+            Simulator
+          </a>
+          <a href="#visualization" className="px-3 py-1.5 text-slate-400 hover:text-slate-200 transition-colors">
+            Visualization
+          </a>
+          <a href="#theory" className="px-3 py-1.5 text-slate-400 hover:text-slate-200 transition-colors">
+            Theory
+          </a>
+          <a href="#about" className="px-3 py-1.5 text-slate-400 hover:text-slate-200 transition-colors">
+            About
+          </a>
         </nav>
       </div>
     </header>
