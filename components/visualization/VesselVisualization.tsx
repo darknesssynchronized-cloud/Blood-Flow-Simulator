@@ -111,7 +111,7 @@ export function VesselVisualization({
       ctx.fillStyle = lumenGrad;
       ctx.fillRect(0, topWallY, width, currentVesselHeight);
 
-      // 4. Parabolic Velocity Grid Lines (Subtle visual aid)
+      // 4. Parabolic Velocity Grid Lines
       ctx.strokeStyle = 'rgba(6, 182, 212, 0.08)';
       ctx.setLineDash([4, 6]);
       ctx.lineWidth = 1;
@@ -125,10 +125,9 @@ export function VesselVisualization({
       ctx.setLineDash([]);
 
       // 5. Normalized Speed Calculation
-      // Clamped visual pixel speed mapping to avoid screen tearing or static freezing
       const basePixelSpeed = Math.min(Math.max(velocity * 120, 30), 600);
 
-      // 6. Animate & Draw Red Blood Cells (Erythrocytes)
+      // 6. Animate & Draw Red Blood Cells
       particles.forEach((p) => {
         p.wobblePhase += dt * 3;
         
@@ -139,10 +138,8 @@ export function VesselVisualization({
           verticalPerturbation = (Math.random() - 0.5) * 6;
         }
 
-        // Move particle left to right based on calculated physical flow
         p.x += basePixelSpeed * p.speedFactor * dt;
 
-        // Seamless loop back to entrance
         if (p.x > width + 20) {
           p.x = -20;
           p.yNorm = (Math.random() * 2 - 1) * 0.85;
@@ -151,15 +148,12 @@ export function VesselVisualization({
 
         const particleY = centerY + p.yNorm * (currentVesselHeight / 2 - 8) + verticalPerturbation;
 
-        // Render Erythrocyte Biconcave Disk Representation
         ctx.save();
         ctx.translate(p.x, particleY);
 
-        // Subtle rotation during movement
         const angle = regime === 'TURBULENT' ? Math.sin(p.wobblePhase) * 0.4 : Math.sin(p.wobblePhase) * 0.1;
         ctx.rotate(angle);
 
-        // RBC Outer Shell
         ctx.beginPath();
         ctx.ellipse(0, 0, RBC_RADIUS_X, RBC_RADIUS_Y, 0, 0, Math.PI * 2);
         ctx.fillStyle = '#f43f5e';
@@ -168,7 +162,6 @@ export function VesselVisualization({
         ctx.lineWidth = 1;
         ctx.stroke();
 
-        // RBC Inner Biconcave Indentation
         ctx.beginPath();
         ctx.ellipse(0, 0, RBC_RADIUS_X * 0.4, RBC_RADIUS_Y * 0.4, 0, 0, Math.PI * 2);
         ctx.fillStyle = '#881337';
@@ -228,7 +221,6 @@ export function VesselVisualization({
           className="w-full h-full object-cover"
         />
 
-        {/* Live Overlay Indicators */}
         <div className="absolute top-3 left-3 bg-[#070a12]/85 border border-slate-800 px-3 py-1.5 rounded text-[11px] font-mono space-y-0.5 backdrop-blur-sm">
           <div className="text-slate-400 flex items-center gap-2">
             <span>FLUID VELOCITY:</span>
@@ -250,10 +242,10 @@ export function VesselVisualization({
           <span className="text-rose-400 font-bold">● Vessel Wall:</span> Elastic Endothelium
         </div>
         <div>
-          <span className="text-cyan-400 font-bold">→ Velocity Vector:</span> Centerline $v_{\max}$
+          <span className="text-cyan-400 font-bold">→ Velocity Vector:</span> Centerline v_max
         </div>
         <div>
-          <span className="text-slate-300 font-bold">● Particles:</span> Erythrocytes ($r \approx \text{const}$)
+          <span className="text-slate-300 font-bold">● Particles:</span> Erythrocytes (Fixed Physical Size)
         </div>
       </div>
     </div>
