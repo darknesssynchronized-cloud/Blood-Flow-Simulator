@@ -54,10 +54,9 @@ export default function Home() {
 
   return (
     <div className="min-h-screen flex flex-col bg-slate-950 text-slate-100">
-      <Header/>
+      <Header />
 
       <main className="flex-1 max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-8">
-        {/* Hero Banner Section */}
         <section className="border-b border-slate-800/80 pb-6">
           <div className="flex flex-col md:flex-row md:items-end justify-between gap-4">
             <div>
@@ -75,31 +74,53 @@ export default function Home() {
           </div>
         </section>
 
-        {/* Core Simulation Grid Section */}
         <section id="simulator" className="grid grid-cols-1 lg:grid-cols-12 gap-8">
-          {/* Left Column: Parameter Controls */}
           <div className="lg:col-span-4">
-            <SimulationControls density="{density}" flowUnit="{flowUnit}" lengthCm="{lengthCm}" onChangeDensity="{setDensity}" onChangeFlowUnit="{setFlowUnit}" onChangeLength="{setLengthCm}" onChangePressure="{setPressureMmHg}" onChangeRadius="{setRadiusMm}" onChangeViscosity="{setViscosityCp}" onReset="{handleReset}" pressureMmHg="{pressureMmHg}" radiusMm="{radiusMm}" viscosityCp="{viscosityCp}"/>
+            <SimulationControls
+              radiusMm={radiusMm}
+              lengthCm={lengthCm}
+              viscosityCp={viscosityCp}
+              pressureMmHg={pressureMmHg}
+              density={density}
+              flowUnit={flowUnit}
+              onChangeRadius={setRadiusMm}
+              onChangeLength={setLengthCm}
+              onChangeViscosity={setViscosityCp}
+              onChangePressure={setPressureMmHg}
+              onChangeDensity={setDensity}
+              onChangeFlowUnit={setFlowUnit}
+              onReset={handleReset}
+            />
           </div>
 
-          {/* Right Column: Dynamic Visualizations & Results */}
           <div className="lg:col-span-8 space-y-8">
-            <VesselVisualization flowRateMls="{flowRateMls}" radiusMm="{radiusMm}" reynoldsNumber="{results.reynoldsNumber}" velocity="{results.velocity}"/>
-            <ResultsPanel flowUnit="{flowUnit}" flowValueFormatted="{flowValueFormatted}" results="{results}"/>
+            <VesselVisualization
+              radiusMm={radiusMm}
+              velocity={results.velocity}
+              flowRateMls={flowRateMls}
+              reynoldsNumber={results.reynoldsNumber}
+            />
+            <ResultsPanel
+              results={results}
+              flowUnit={flowUnit}
+              flowValueFormatted={flowValueFormatted}
+            />
           </div>
         </section>
 
-        {/* Visual Analysis Section */}
         <section id="visualization">
-          <RadiusFlowChart currentRadiusMm="{radiusMm}" lengthCm="{lengthCm}" pressureMmHg="{pressureMmHg}" viscosityCp="{viscosityCp}"/>
+          <RadiusFlowChart
+            currentRadiusMm={radiusMm}
+            lengthCm={lengthCm}
+            viscosityCp={viscosityCp}
+            pressureMmHg={pressureMmHg}
+          />
         </section>
 
-        {/* Theory & Assumptions Section */}
-        <ScientificTheory/>
-        <AssumptionsDisclaimer/>
+        <ScientificTheory />
+        <AssumptionsDisclaimer />
       </main>
 
-      {/* Footer */}
       <footer id="about" className="border-t border-slate-800/80 bg-slate-950 py-8 text-xs font-mono text-slate-500">
         <div className="max-w-7xl mx-auto px-4 text-center space-y-2">
           <p>Blood Flow Simulator — Biomedical Engineering Educational Tool</p>
