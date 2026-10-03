@@ -1,10 +1,7 @@
-export function formatScientific(num: number, digits = 3): string {
-  if (num === 0 || !isFinite(num)) return '0';
-  if (Math.abs(num) >= 1e4 || Math.abs(num) < 1e-3) {
-    return num.toExponential(digits);
+export function formatScientific(num: number): string {
+  if (num === 0) return '0';
+  if (Math.abs(num) >= 0.01 && Math.abs(num) < 100000) {
+    return num.toLocaleString('en-US', { maximumFractionDigits: 2 });
   }
-  return num.toLocaleString('en-US', {
-    maximumFractionDigits: digits,
-    minimumFractionDigits: 0,
-  });
+  return num.toExponential(3);
 }
