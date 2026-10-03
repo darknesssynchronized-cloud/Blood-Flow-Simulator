@@ -11,55 +11,101 @@ interface ResultsProps {
 }
 
 export function ResultsPanel({ results, flowUnit, flowValueFormatted }: ResultsProps) {
+  const getRegimeBadge = () => {
+    switch (results.regime) {
+      case 'LAMINAR':
+        return {
+          bg: 'bg-emerald-950/80 border-emerald-500/50 text-emerald-400',
+          dot: 'bg-emerald-400',
+          label: 'LAMINAR FLOW',
+          desc: 'Re < 2000 (Parallel, smooth streamlines)',
+        };
+      case 'TRANSITIONAL':
+        return {
+          bg: 'bg-amber-950/80 border-amber-500/50 text-amber-400',
+          dot: 'bg-amber-400',
+          label: 'TRANSITIONAL FLOW',
+          desc: '2000 ≤ Re ≤ 4000 (Instabilities developing)',
+        };
+      case 'TURBULENT':
+        return {
+          bg: 'bg-rose-950/80 border-rose-500/50 text-rose-400',
+          dot: 'bg-rose-400',
+          label: 'TURBULENT FLOW',
+          desc: 'Re > 4000 (Recirculation, vortices)',
+        };
+    }
+  };
+
+  const badge = getRegimeBadge();
+
   return (
-    <div className="bg-slate-900 border border-slate-800 rounded-xl p-6 text-white space-y-6">
-      <h2 className="text-xl font-bold border-b border-slate-800 pb-3 text-cyan-400">
-        Live Calculation Results
-      </h2>
+    <div className="bg-[#0d1322] border border-slate-800 rounded-xl p-5 shadow-xl space-y-4">
+      <div className="flex items-center justify-between border-b border-slate-800 pb-3">
+        <h2 className="text-sm font-bold tracking-wider text-slate-200 uppercase flex items-center gap-2">
+          <span>📊</span> Live Quantitative Results
+        </h2>
+        <span className="text-[10px] font-mono text-slate-500">Real-Time Hagen–Poiseuille Calculation</span>
+      </div>
 
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
-        <div className="bg-slate-950 border border-slate-800 p-4 rounded-lg">
-          <span className="text-xs text-slate-400 block mb-1">Volumetric Flow Rate (Q)</span>
-          <div className="text-2xl font-bold font-mono text-cyan-300">
-            {flowValueFormatted.toFixed(2)} <span className="text-sm font-normal text-slate-400">{flowUnit}</span>
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+        {/* Volumetric Flow Rate */}
+        <div className="bg-[#070a12] border border-slate-800/90 p-4 rounded-lg relative overflow-hidden group hover:border-cyan-500/40 transition-colors">
+          <div className="text-[10px] font-mono text-slate-400 uppercase tracking-wider mb-1">
+            VOLUMETRIC FLOW RATE ($Q$)
+          </div>
+          <div className="text-3xl font-extrabold font-mono text-cyan-400 tracking-tight">
+            {flowValueFormatted.toFixed(2)}
+          </div>
+          <div className="text-xs font-mono text-slate-400 mt-1 flex justify-between items-center">
+            <span>{flowUnit}</span>
+            <span className="text-[10px] text-cyan-500/80">↑ Active Simulation</span>
           </div>
         </div>
 
-        <div className="bg-slate-950 border border-slate-800 p-4 rounded-lg">
-          <span className="text-xs text-slate-400 block mb-1">Mean Flow Velocity (v)</span>
-          <div className="text-2xl font-bold font-mono text-cyan-300">
-            {results.velocity.toFixed(3)} <span className="text-sm font-normal text-slate-400">m/s</span>
+        {/* Mean Flow Velocity */}
+        <div className="bg-[#070a12] border border-slate-800/90 p-4 rounded-lg relative overflow-hidden group hover:border-cyan-500/40 transition-colors">
+          <div className="text-[10px] font-mono text-slate-400 uppercase tracking-wider mb-1">
+            MEAN VELOCITY ($v$)
           </div>
+          <div className="text-3xl font-extrabold font-mono text-slate-100 tracking-tight">
+            {results.velocity.toFixed(3)}
+          </div>
+          <div className="text-xs font-mono text-slate-400 mt-1">m / s</div>
         </div>
 
-        <div className="bg-slate-950 border border-slate-800 p-4 rounded-lg">
-          <span className="text-xs text-slate-400 block mb-1">Hydraulic Resistance (R)</span>
-          <div className="text-2xl font-bold font-mono text-cyan-300">
-            {formatScientific(results.resistance)}{' '}
-            <span className="text-sm font-normal text-slate-400">Pa·s/m³</span>
+        {/* Reynolds Number */}
+        <div className="bg-[#070a12] border border-slate-800/90 p-4 rounded-lg relative overflow-hidden group hover:border-cyan-500/40 transition-colors">
+          <div className="text-[10px] font-mono text-slate-400 uppercase tracking-wider mb-1">
+            REYNOLDS NUMBER ($Re$)
           </div>
-        </div>
-
-        <div className="bg-slate-950 border border-slate-800 p-4 rounded-lg">
-          <span className="text-xs text-slate-400 block mb-1">Reynolds Number (Re)</span>
-          <div className="text-2xl font-bold font-mono text-cyan-300">
+          <div className="text-3xl font-extrabold font-mono text-slate-100 tracking-tight">
             {results.reynoldsNumber.toFixed(1)}
           </div>
-          <span
-            className={`inline-block mt-1 px-2 py-0.5 text-[10px] rounded font-semibold ${
-              results.isLaminar ? 'bg-emerald-950 text-emerald-400' : 'bg-amber-950 text-amber-400'
-            }`}
-          >
-            {results.isLaminar ? 'Laminar Flow' : 'Transitional / Turbulent Warning'}
-          </span>
-        </div>
-
-        <div className="bg-slate-950 border border-slate-800 p-4 rounded-lg">
-          <span className="text-xs text-slate-400 block mb-1">Wall Shear Stress (τ)</span>
-          <div className="text-2xl font-bold font-mono text-cyan-300">
-            {results.shearStress.toFixed(2)} <span className="text-sm font-normal text-slate-400">Pa</span>
+          <div className={`inline-flex items-center gap-1.5 mt-2 px-2 py-0.5 rounded border text-[10px] font-mono font-bold ${badge.bg}`}>
+            <span className={`w-1.5 h-1.5 rounded-full ${badge.dot}`}></span>
+            {badge.label}
           </div>
         </div>
+
+        {/* Wall Shear Stress */}
+        <div className="bg-[#070a12] border border-slate-800/90 p-4 rounded-lg relative overflow-hidden group hover:border-cyan-500/40 transition-colors">
+          <div className="text-[10px] font-mono text-slate-400 uppercase tracking-wider mb-1">
+            WALL SHEAR STRESS ($\tau_w$)
+          </div>
+          <div className="text-3xl font-extrabold font-mono text-slate-100 tracking-tight">
+            {results.shearStress.toFixed(2)}
+          </div>
+          <div className="text-xs font-mono text-slate-400 mt-1">Pa ($\text{N/m}^2$)</div>
+        </div>
+      </div>
+
+      {/* Hydraulic Resistance Banner */}
+      <div className="bg-[#070a12] border border-slate-800/90 px-4 py-3 rounded-lg flex flex-col sm:flex-row items-center justify-between text-xs font-mono gap-2">
+        <span className="text-slate-400">HYDRAULIC RESISTANCE ($R_h$):</span>
+        <span className="text-cyan-300 font-bold text-sm">
+          {formatScientific(results.resistance)} <span className="text-xs text-slate-500">Pa·s/m³</span>
+        </span>
       </div>
     </div>
   );
