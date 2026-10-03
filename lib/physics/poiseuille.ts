@@ -1,59 +1,54 @@
-export interface PoiseuilleParams {
-  radius: number;       // meters
-  length: number;       // meters
-  viscosity: number;    // Pa·s
+export interface PhysicsInput {
+  radius: number; // meters
+  length: number; // meters
+  viscosity: number; // Pa·s
   pressureDiff: number; // Pascals
-  density: number;      // kg/m³
+  density?: number; // kg/m³
 }
 
 export interface PhysicsResult {
-  flowRateM3s: number;
-  velocity: number;
-  reynoldsNumber: number;
-  shearStress: number;
-  resistance: number;
-  regime: 'LAMINAR' | 'TRANSITIONAL' | 'TURBULENT';
+  flowRate: number; // m³/s
+  resistance: number; // Pa·s/m³
+  velocity: number; // m/s
+  shearStress: number; // Pa
+  reynoldsNumber: number; // dimensionless
+  isLaminar: boolean;
+  r4Multiplier: number;
 }
 
-export function calculatePoiseuille({
-  radius,
-  length,
-  viscosity,
-  pressureDiff,
-  density,
-}: PoiseuilleParams): PhysicsResult {
-  // Hagen-Poiseuille Flow Rate: Q = (π * r^4 * ΔP) / (8 * η * L)
-  const flowRateM3s =
-    (Math.PI * Math.pow(radius, 4) * pressureDiff) / (8 * viscosity * length);
+export const DEFAULT_DENSITY = 1060;
 
-  // Mean Velocity: v = Q / (π * r^2)
-  const area = Math.PI * Math.pow(radius, 2);
-  const velocity = area > 0 ? flowRateM3s / area : 0;
+export function calculatePoiseuille(input: PhysicsInput): PhysicsResult {
+  const { radius, length, viscosity, pressureDiff, density = DEFAULT_DENSITY } = input;
 
-  // Hydraulic Resistance: R = (8 * η * L) / (π * r^4)
-  const resistance = (8 * viscosity * length) / (Math.PI * Math.pow(radius, 4));
-
-  // Wall Shear Stress: τ = (r * ΔP) / (2 * L)
-  const shearStress = (radius * pressureDiff) / (2 * length);
-
-  // Reynolds Number: Re = (ρ * v * D) / η
-  const diameter = 2 * radius;
-  const reynoldsNumber = viscosity > 0 ? (density * velocity * diameter) / viscosity : 0;
-
-  // Flow Regime Categorization
-  let regime: 'LAMINAR' | 'TRANSITIONAL' | 'TURBULENT' = 'LAMINAR';
-  if (reynoldsNumber > 4000) {
-    regime = 'TURBULENT';
-  } else if (reynoldsNumber >= 2000) {
-    regime = 'TRANSITIONAL';
+  if (radius <= 0 || length <= 0 || viscosity <= 0 || pressureDiff <= 0) {
+    return {
+      flowRate: 0,
+      resistance: 0,
+      velocity: 0,
+      shearStress: 0,
+      reynoldsNumber: 0,
+      isLaminar: true,
+      r4Multiplier: 0,
+    };
   }
 
+  // Hagen-Poiseuille Law: Q = (π * r⁴ * ΔP) / (8 * μ * L)
+  const flowRate = (Math.PI * Math.pow(radius, 4) * pressureDiff) / (8 * viscosity * length);
+  const resistance = (8 * viscosity * length) / (Math.PI * Math.pow(radius, 4));
+  const area = Math.PI * Math.pow(radius, 2);
+  const velocity = flowRate / area;
+  const shearStress = (4 * viscosity * flowRate) / (Math.PI * Math.pow(radius, 3));
+  const diameter = 2 * radius;
+  const reynoldsNumber = (density * velocity * diameter) / viscosity;
+
   return {
-    flowRateM3s,
-    velocity,
-    reynoldsNumber,
-    shearStress,
+    flowRate,
     resistance,
-    regime,
+    velocity,
+    shearStress,
+    reynoldsNumber,
+    isLaminar: reynoldsNumber < 2000,
+    r4Multiplier: Math.pow(radius / 0.002, 4),
   };
 }
