@@ -56,7 +56,7 @@ export function SimulationControls({
         <div className="bg-slate-950/70 p-3.5 rounded-lg border border-slate-800/80">
           <div className="flex justify-between items-center mb-2">
             <label htmlFor="radius-input" className="text-xs font-bold text-slate-200 tracking-wide">
-              VESSEL RADIUS ($r$)
+              VESSEL RADIUS (r)
             </label>
             <div className="flex items-center space-x-1">
               <input
@@ -92,7 +92,7 @@ export function SimulationControls({
         <div className="bg-slate-950/70 p-3.5 rounded-lg border border-slate-800/80">
           <div className="flex justify-between items-center mb-2">
             <label htmlFor="length-input" className="text-xs font-bold text-slate-200 tracking-wide">
-              VESSEL LENGTH ($L$)
+              VESSEL LENGTH (L)
             </label>
             <div className="flex items-center space-x-1">
               <input
@@ -127,7 +127,7 @@ export function SimulationControls({
         <div className="bg-slate-950/70 p-3.5 rounded-lg border border-slate-800/80">
           <div className="flex justify-between items-center mb-2">
             <label htmlFor="viscosity-input" className="text-xs font-bold text-slate-200 tracking-wide">
-              BLOOD VISCOSITY ($\eta$)
+              BLOOD VISCOSITY (η)
             </label>
             <div className="flex items-center space-x-1">
               <input
@@ -162,7 +162,7 @@ export function SimulationControls({
         <div className="bg-slate-950/70 p-3.5 rounded-lg border border-slate-800/80">
           <div className="flex justify-between items-center mb-2">
             <label htmlFor="pressure-input" className="text-xs font-bold text-slate-200 tracking-wide">
-              PRESSURE DIFFERENCE ($\Delta P$)
+              PRESSURE DIFFERENCE (ΔP)
             </label>
             <div className="flex items-center space-x-1">
               <input
@@ -202,7 +202,7 @@ export function SimulationControls({
         </summary>
         <div className="space-y-3 pt-3 pl-1">
           <div className="flex justify-between items-center">
-            <span className="text-[11px]">Blood Density ($\rho$):</span>
+            <span className="text-[11px]">Blood Density (ρ):</span>
             <div className="flex items-center space-x-1">
               <input
                 type="number"
