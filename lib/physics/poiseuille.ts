@@ -1,9 +1,9 @@
 export interface PoiseuilleParams {
-  radiusMm: number;
-  lengthCm: number;
-  viscosityCp: number;
-  pressureMmHg: number;
-  density: number;
+  radius: number;       // meters
+  length: number;       // meters
+  viscosity: number;    // Pa·s
+  pressureDiff: number; // Pascals
+  density: number;      // kg/m³
 }
 
 export interface PhysicsResult {
@@ -16,25 +16,19 @@ export interface PhysicsResult {
 }
 
 export function calculatePoiseuille({
-  radiusMm,
-  lengthCm,
-  viscosityCp,
-  pressureMmHg,
+  radius,
+  length,
+  viscosity,
+  pressureDiff,
   density,
 }: PoiseuilleParams): PhysicsResult {
-  // Convert inputs to SI units
-  const radius = radiusMm * 1e-3; // meters
-  const length = lengthCm * 1e-2; // meters
-  const viscosity = viscosityCp * 1e-3; // Pa·s
-  const pressureDiff = pressureMmHg * 133.322; // Pascals
-
   // Hagen-Poiseuille Flow Rate: Q = (π * r^4 * ΔP) / (8 * η * L)
   const flowRateM3s =
     (Math.PI * Math.pow(radius, 4) * pressureDiff) / (8 * viscosity * length);
 
   // Mean Velocity: v = Q / (π * r^2)
   const area = Math.PI * Math.pow(radius, 2);
-  const velocity = flowRateM3s / area;
+  const velocity = area > 0 ? flowRateM3s / area : 0;
 
   // Hydraulic Resistance: R = (8 * η * L) / (π * r^4)
   const resistance = (8 * viscosity * length) / (Math.PI * Math.pow(radius, 4));
