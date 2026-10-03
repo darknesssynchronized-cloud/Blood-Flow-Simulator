@@ -205,8 +205,11 @@ export function SimulationControls({
             <div className="flex items-center space-x-1">
               <input
                 type="number"
+                min={PARAM_LIMITS.density.min}
+                max={PARAM_LIMITS.density.max}
+                step={1}
                 value={density}
-                onChange={(e) => onChangeDensity(clamp(parseFloat(e.target.value), 1000, 1100))}
+                onChange={(e) => onChangeDensity(clamp(parseFloat(e.target.value), PARAM_LIMITS.density.min, PARAM_LIMITS.density.max))}
                 className="w-20 bg-slate-950 border border-slate-700 rounded px-2 py-1 text-right text-cyan-400 font-mono"
               />
               <span className="text-[10px] text-slate-400 font-mono">kg/m³</span>
