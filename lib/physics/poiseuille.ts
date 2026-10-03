@@ -1,17 +1,17 @@
 export interface PhysicsInput {
-  radius: number;
-  length: number;
-  viscosity: number;
-  pressureDiff: number;
-  density?: number;
+  radius: number; // meters
+  length: number; // meters
+  viscosity: number; // Pa·s
+  pressureDiff: number; // Pascals
+  density?: number; // kg/m³
 }
 
 export interface PhysicsResult {
-  flowRate: number;
-  resistance: number;
-  velocity: number;
-  shearStress: number;
-  reynoldsNumber: number;
+  flowRate: number; // m³/s
+  resistance: number; // Pa·s/m³
+  velocity: number; // m/s
+  shearStress: number; // Pa
+  reynoldsNumber: number; // dimensionless
   isLaminar: boolean;
   r4Multiplier: number;
 }
@@ -33,6 +33,7 @@ export function calculatePoiseuille(input: PhysicsInput): PhysicsResult {
     };
   }
 
+  // Hagen-Poiseuille Law: Q = (π * r⁴ * ΔP) / (8 * μ * L)
   const flowRate = (Math.PI * Math.pow(radius, 4) * pressureDiff) / (8 * viscosity * length);
   const resistance = (8 * viscosity * length) / (Math.PI * Math.pow(radius, 4));
   const area = Math.PI * Math.pow(radius, 2);
