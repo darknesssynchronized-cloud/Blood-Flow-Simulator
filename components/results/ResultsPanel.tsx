@@ -52,7 +52,7 @@ export function ResultsPanel({ results, flowUnit, flowValueFormatted }: ResultsP
         {/* Volumetric Flow Rate */}
         <div className="bg-[#070a12] border border-slate-800/90 p-4 rounded-lg relative overflow-hidden group hover:border-cyan-500/40 transition-colors">
           <div className="text-[10px] font-mono text-slate-400 uppercase tracking-wider mb-1">
-            VOLUMETRIC FLOW RATE ($Q$)
+            VOLUMETRIC FLOW RATE (Q)
           </div>
           <div className="text-3xl font-extrabold font-mono text-cyan-400 tracking-tight">
             {flowValueFormatted.toFixed(2)}
@@ -66,7 +66,7 @@ export function ResultsPanel({ results, flowUnit, flowValueFormatted }: ResultsP
         {/* Mean Flow Velocity */}
         <div className="bg-[#070a12] border border-slate-800/90 p-4 rounded-lg relative overflow-hidden group hover:border-cyan-500/40 transition-colors">
           <div className="text-[10px] font-mono text-slate-400 uppercase tracking-wider mb-1">
-            MEAN VELOCITY ($v$)
+            MEAN VELOCITY (v)
           </div>
           <div className="text-3xl font-extrabold font-mono text-slate-100 tracking-tight">
             {results.velocity.toFixed(3)}
@@ -77,7 +77,7 @@ export function ResultsPanel({ results, flowUnit, flowValueFormatted }: ResultsP
         {/* Reynolds Number */}
         <div className="bg-[#070a12] border border-slate-800/90 p-4 rounded-lg relative overflow-hidden group hover:border-cyan-500/40 transition-colors">
           <div className="text-[10px] font-mono text-slate-400 uppercase tracking-wider mb-1">
-            REYNOLDS NUMBER ($Re$)
+            REYNOLDS NUMBER (Re)
           </div>
           <div className="text-3xl font-extrabold font-mono text-slate-100 tracking-tight">
             {results.reynoldsNumber.toFixed(1)}
@@ -91,18 +91,18 @@ export function ResultsPanel({ results, flowUnit, flowValueFormatted }: ResultsP
         {/* Wall Shear Stress */}
         <div className="bg-[#070a12] border border-slate-800/90 p-4 rounded-lg relative overflow-hidden group hover:border-cyan-500/40 transition-colors">
           <div className="text-[10px] font-mono text-slate-400 uppercase tracking-wider mb-1">
-            WALL SHEAR STRESS ($\tau_w$)
+            WALL SHEAR STRESS (τ_w)
           </div>
           <div className="text-3xl font-extrabold font-mono text-slate-100 tracking-tight">
             {results.shearStress.toFixed(2)}
           </div>
-          <div className="text-xs font-mono text-slate-400 mt-1">Pa ($\text{N/m}^2$)</div>
+          <div className="text-xs font-mono text-slate-400 mt-1">Pa (N/m²)</div>
         </div>
       </div>
 
       {/* Hydraulic Resistance Banner */}
       <div className="bg-[#070a12] border border-slate-800/90 px-4 py-3 rounded-lg flex flex-col sm:flex-row items-center justify-between text-xs font-mono gap-2">
-        <span className="text-slate-400">HYDRAULIC RESISTANCE ($R_h$):</span>
+        <span className="text-slate-400">HYDRAULIC RESISTANCE (R_h):</span>
         <span className="text-cyan-300 font-bold text-sm">
           {formatScientific(results.resistance)} <span className="text-xs text-slate-500">Pa·s/m³</span>
         </span>
