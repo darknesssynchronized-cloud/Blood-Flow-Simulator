@@ -77,7 +77,7 @@ export function RadiusFlowChart({
           <h2 className="text-sm font-mono uppercase tracking-wider text-cyan-400 font-bold">
             Visual Analysis: Radius vs Flow Rate
           </h2>
-          <p className="text-xs text-slate-400 mt-0.5">Non-linear exponential relationship ($Q \propto r^4$)</p>
+          <p className="text-xs text-slate-400 mt-0.5">Non-linear power-law relationship (Q ∝ r⁴)</p>
         </div>
         <div className="text-right font-mono text-xs">
           <span className="text-slate-400">Current Point: </span>
