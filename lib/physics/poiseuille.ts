@@ -1,71 +1,65 @@
-export interface PhysicsInput {
-  radius: number;       // meters
-  length: number;       // meters
-  viscosity: number;    // Pa*s
-  pressureDiff: number; // Pascals
-  density?: number;     // kg/m^3
+export interface PoiseuilleParams {
+  radiusMm: number;
+  lengthCm: number;
+  viscosityCp: number;
+  pressureMmHg: number;
+  density: number;
 }
-
-export type FlowRegime = 'LAMINAR' | 'TRANSITIONAL' | 'TURBULENT';
 
 export interface PhysicsResult {
-  flowRate: number;        // m^3/s
-  resistance: number;      // Pa*s/m^3
-  velocity: number;        // m/s
-  shearStress: number;     // Pa
-  reynoldsNumber: number;  // Dimensionless
-  regime: FlowRegime;
-  r4Multiplier: number;
+  flowRateM3s: number;
+  velocity: number;
+  reynoldsNumber: number;
+  shearStress: number;
+  resistance: number;
+  regime: 'LAMINAR' | 'TRANSITIONAL' | 'TURBULENT';
 }
 
-export const DEFAULT_DENSITY = 1060; // kg/m^3 (Human Blood)
+export function calculatePoiseuille({
+  radiusMm,
+  lengthCm,
+  viscosityCp,
+  pressureMmHg,
+  density,
+}: PoiseuilleParams): PhysicsResult {
+  // Convert inputs to SI units
+  const radius = radiusMm * 1e-3; // meters
+  const length = lengthCm * 1e-2; // meters
+  const viscosity = viscosityCp * 1e-3; // Pa·s
+  const pressureDiff = pressureMmHg * 133.322; // Pascals
 
-export function calculatePoiseuille(input: PhysicsInput): PhysicsResult {
-  const { radius, length, viscosity, pressureDiff, density = DEFAULT_DENSITY } = input;
+  // Hagen-Poiseuille Flow Rate: Q = (π * r^4 * ΔP) / (8 * η * L)
+  const flowRateM3s =
+    (Math.PI * Math.pow(radius, 4) * pressureDiff) / (8 * viscosity * length);
 
-  if (radius <= 0 || length <= 0 || viscosity <= 0 || pressureDiff <= 0) {
-    return {
-      flowRate: 0,
-      resistance: 0,
-      velocity: 0,
-      shearStress: 0,
-      reynoldsNumber: 0,
-      regime: 'LAMINAR',
-      r4Multiplier: 0,
-    };
-  }
-
-  // Q = (PI * r^4 * ΔP) / (8 * η * L)
-  const flowRate = (Math.PI * Math.pow(radius, 4) * pressureDiff) / (8 * viscosity * length);
-  
-  // R = (8 * η * L) / (PI * r^4)
-  const resistance = (8 * viscosity * length) / (Math.PI * Math.pow(radius, 4));
-  
-  // v = Q / A = Q / (PI * r^2)
+  // Mean Velocity: v = Q / (π * r^2)
   const area = Math.PI * Math.pow(radius, 2);
-  const velocity = flowRate / area;
-  
-  // τ = (4 * η * Q) / (PI * r^3) = (r * ΔP) / (2 * L)
-  const shearStress = (r * pressureDiff) / (2 * length);
-  
-  // Re = (ρ * v * D) / η
+  const velocity = flowRateM3s / area;
+
+  // Hydraulic Resistance: R = (8 * η * L) / (π * r^4)
+  const resistance = (8 * viscosity * length) / (Math.PI * Math.pow(radius, 4));
+
+  // Wall Shear Stress: τ = (r * ΔP) / (2 * L)
+  const shearStress = (radius * pressureDiff) / (2 * length);
+
+  // Reynolds Number: Re = (ρ * v * D) / η
   const diameter = 2 * radius;
   const reynoldsNumber = (density * velocity * diameter) / viscosity;
 
-  let regime: FlowRegime = 'LAMINAR';
-  if (reynoldsNumber >= 2000 && reynoldsNumber <= 4000) {
-    regime = 'TRANSITIONAL';
-  } else if (reynoldsNumber > 4000) {
+  // Flow Regime Categorization
+  let regime: 'LAMINAR' | 'TRANSITIONAL' | 'TURBULENT' = 'LAMINAR';
+  if (reynoldsNumber > 4000) {
     regime = 'TURBULENT';
+  } else if (reynoldsNumber >= 2000) {
+    regime = 'TRANSITIONAL';
   }
 
   return {
-    flowRate,
-    resistance,
+    flowRateM3s,
     velocity,
-    shearStress,
     reynoldsNumber,
+    shearStress,
+    resistance,
     regime,
-    r4Multiplier: Math.pow(radius / 0.002, 4),
   };
 }
