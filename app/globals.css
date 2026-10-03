@@ -10,8 +10,20 @@
 }
 
 /* Custom Scientific Slider Styling */
+input[type="range"] {
+  @apply appearance-none bg-transparent;
+}
+
+input[type="range"]::-webkit-slider-runnable-track {
+  @apply h-1.5 rounded-lg bg-slate-800;
+}
+
+input[type="range"]::-moz-range-track {
+  @apply h-1.5 rounded-lg bg-slate-800;
+}
+
 input[type="range"]::-webkit-slider-thumb {
-  @apply appearance-none w-4 h-4 rounded-full bg-cyan-400 border-2 border-slate-950 shadow-md shadow-cyan-500/50 cursor-pointer transition-transform hover:scale-125 active:scale-110;
+  @apply appearance-none -mt-[5px] w-4 h-4 rounded-full bg-cyan-400 border-2 border-slate-950 shadow-md shadow-cyan-500/50 cursor-pointer transition-transform hover:scale-125 active:scale-110;
 }
 
 input[type="range"]::-moz-range-thumb {
