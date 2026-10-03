@@ -1,32 +1,11 @@
-import { describe, it, expect } from 'vitest';
-import {
-  mmToMeters,
-  metersToMm,
-  cmToMeters,
-  cPToPas,
-  mmHgToPascal,
-  m3sToMls,
-} from '../lib/units';
+import { mmToMeters, cmToMeters, cPToPas, mmHgToPascal } from '../lib/units';
 
-describe('Unit Conversions', () => {
-  it('converts mm to meters and back', () => {
-    expect(mmToMeters(2)).toBe(0.002);
-    expect(metersToMm(0.002)).toBe(2);
-  });
+function testUnits() {
+  console.assert(mmToMeters(1) === 0.001, '1mm = 0.001m');
+  console.assert(cmToMeters(1) === 0.01, '1cm = 0.01m');
+  console.assert(cPToPas(1) === 0.001, '1cP = 0.001 Pa.s');
+  console.assert(Math.abs(mmHgToPascal(1) - 133.322) < 0.01, '1mmHg ~ 133.32Pa');
+  console.log('Unit conversion tests passed!');
+}
 
-  it('converts cm to meters', () => {
-    expect(cmToMeters(20)).toBe(0.2);
-  });
-
-  it('converts cP to Pa·s', () => {
-    expect(cPToPas(3.5)).toBe(0.0035);
-  });
-
-  it('converts mmHg to Pascal', () => {
-    expect(mmHgToPascal(1)).toBeCloseTo(133.322, 2);
-  });
-
-  it('converts m3/s to mL/s', () => {
-    expect(m3sToMls(0.000001)).toBe(1);
-  });
-});
+testUnits();

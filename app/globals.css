@@ -2,8 +2,54 @@
 @tailwind components;
 @tailwind utilities;
 
-body {
-  background-color: #020617;
-  color: #f8fafc;
-  font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+@layer base {
+  html {
+    color-scheme: dark;
+    scroll-padding-top: 5rem;
+  }
+  body {
+    background-image:
+      radial-gradient(60rem 28rem at 50% -8rem, rgba(124, 58, 237, 0.22), transparent 70%),
+      radial-gradient(40rem 24rem at 100% 100%, rgba(88, 28, 135, 0.18), transparent 70%);
+    background-attachment: fixed;
+    @apply bg-ink-950 text-ink-100 antialiased selection:bg-accent-500/30 selection:text-accent-200;
+    font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  }
+}
+
+/* Custom Scientific Slider Styling */
+input[type="range"] {
+  @apply appearance-none bg-transparent;
+}
+
+input[type="range"]::-webkit-slider-runnable-track {
+  @apply h-1.5 rounded-lg bg-ink-800;
+}
+
+input[type="range"]::-moz-range-track {
+  @apply h-1.5 rounded-lg bg-ink-800;
+}
+
+input[type="range"]::-webkit-slider-thumb {
+  @apply appearance-none -mt-[5px] w-4 h-4 rounded-full bg-accent-400 border-2 border-ink-950 shadow-md shadow-accent-500/50 cursor-pointer transition-transform hover:scale-125 active:scale-110;
+}
+
+input[type="range"]::-moz-range-thumb {
+  @apply appearance-none w-4 h-4 rounded-full bg-accent-400 border-2 border-ink-950 shadow-md shadow-accent-500/50 cursor-pointer transition-transform hover:scale-125 active:scale-110;
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+::-webkit-scrollbar-track {
+  background: #0a0612;
+}
+::-webkit-scrollbar-thumb {
+  background: #372f4b;
+  border-radius: 4px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #4f4666;
 }
